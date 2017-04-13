@@ -1,0 +1,218 @@
+$icon-font-path: "/bower_components/sass-bootstrap/fonts/";
+@import 'sass-bootstrap/lib/bootstrap';
+.browsehappy {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+
+/* Space out content a bit */
+
+body {
+    background: url('/images/TravaloBackground.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.travaloLink {
+    background-color: #2B2C59;
+    color: white;
+}
+
+.travaloMenu {
+    padding: 1%;
+}
+
+.travaloLoginForm {
+    border-radius: 6px;
+    border: 2px solid #2B2C59;
+    background-color: #eeeeee;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 2px solid #2B2C59;
+    padding: 0;
+}
+
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+
+.banner {
+    background: url('/images/Travalo_BannerBackground.png') repeat center center fixed;
+    width: 80%;
+    height: 90px;
+    border-radius: 6px;
+    display: block;
+    margin: auto;
+    overflow: hidden;
+}
+
+.travaloIcon {
+    font-size: 300%;
+    height: 100%;
+    width: 30%;
+    padding: 1%;
+    color: white;
+    text-align: center;
+    float: left;
+}
+
+.travaloIcon img {
+    height: 100%;
+}
+
+.bookicons {
+    height: 100%;
+    width: 10%;
+    padding: 1%;
+    color: white;
+    text-align: center;
+    float: left;
+}
+
+.bookicons img {
+    display: block;
+    margin: auto;
+}
+
+.pointer:hover {
+    cursor: pointer;
+}
+
+.bookicons:hover {
+    cursor: pointer;
+    border-radius: 6px;
+    border-style: solid;
+    border-width: 2px;
+}
+
+.bookFlight {
+    float: left;
+}
+
+.header,
+.marketing,
+.footer {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.link {
+    color: #2B2C59;
+}
+
+
+/* Custom page header */
+
+.header {
+    background-color: #eeeeee;
+    border-radius: 6px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+
+/* Make the masthead heading the same height as the navigation */
+
+.header h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 40px;
+    padding-bottom: 19px;
+}
+
+
+/* Custom page footer */
+
+.footer {
+    padding-top: 19px;
+    color: #777;
+    border-top: 1px solid #e5e5e5;
+}
+
+.container-narrow>hr {
+    margin: 30px 0;
+}
+
+
+/* Main marketing message and sign up button */
+
+.jumbotron {
+    text-align: center;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.jumbotron .btn {
+    font-size: 21px;
+    padding: 14px 24px;
+}
+
+
+/* Supporting marketing content */
+
+.marketing {
+    margin: 40px 0;
+}
+
+.marketing p+h4 {
+    margin-top: 28px;
+}
+
+.container {
+    margin-top: 2%;
+}
+
+.activeLink {
+    color: #029f5b;
+    font-weight: bold;
+
+}
+
+.welcomeIcon {
+    width:80%;
+    height:80%;
+}
+
+div.vertical-line {
+    width: 1px;
+    /* Line width */
+    background-color: black;
+    /* Line color */
+    height: 100%;
+    /* Override in-line if you want specific height. */
+    float: left;
+    /* Causes the line to float to left of content. 
+        You can instead use position:absolute or display:inline-block
+        if this fits better with your design */
+}
+
+
+/* Responsive: Portrait tablets and up */
+
+@media screen and (min-width: 768px) {
+    .container {
+        max-width: 70%;
+    }
+    /* Remove the padding we set earlier */
+    .header,
+    .marketing,
+    .footer {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    /* Space out the masthead */
+    .header {
+        margin-bottom: 30px;
+    }
+    /* Remove the bottom border on the jumbotron for visual effect */
+    .jumbotron {
+        border-bottom: 0;
+    }
+}

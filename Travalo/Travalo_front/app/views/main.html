@@ -1,0 +1,99 @@
+<!--<div class="header">
+
+    <ul class="nav nav-pills pull-right travaloMenu">
+        <li><a class="travaloLink" ng-href="#">Home</a></li>
+        <li><a class="travaloLink" ng-href="#">About</a></li>
+        <li><a class="travaloLink" ng-href="#">Contact</a></li>
+    </ul>
+    <h3 class="text-muted">angular bootstrap grunt bower</h3>
+</div>-->
+
+<!--<div class="jumbotron">
+    <h1>'Allo, 'Allo!</h1>
+    <p class="lead">
+        <img src="images/yeoman.png" alt="I'm Yeoman"><br> Always a pleasure scaffolding your apps.
+    </p>
+    <p><a class="btn btn-lg btn-success" ng-href="#">Splendid!</a></p>
+</div>-->
+
+
+<div class="jumbotron row">
+    <div class="col-md-6">
+        <div class="row col-md-12">
+            <img class="welcomeIcon" src="images/Travalo_Welcome.png" alt="Welcome">
+        </div>
+        <div class="row col-md-12">
+            <img class="welcomeIcon" src="images/Travalo_HomeIcon.png" alt="Welcome">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-login travaloLoginForm">
+            <div class="panel-heading">
+                <div class="row">
+                    <div ng-click="loginTabClick()" class="col-xs-6 pointer" style="border-right: 2px solid #2B2C59;">
+                        <p class="link" ng-class="{'activeLink':selectedTab === 'login'}" id="login-form-link">Login</p>
+                    </div>
+                    <div ng-click="registerTabClick()" class="col-xs-6 pointer">
+                        <p class="link" ng-class="{'activeLink':selectedTab === 'register'}" id="register-form-link">Register</p>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form ng-submit="login()" id="login-form" role="form" ng-show="selectedTab === 'login'">
+                            <div class="form-group">
+                                <input type="text" name="username" id="username" class="form-control" ng-model="username" required placeholder="Username" value="">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="password" id="password" class="form-control" ng-model="password" required placeholder="Password">
+                            </div>
+                            <div class="form-group text-center">
+                                <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
+                                <label for="remember"> Remember Me</label>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-6 col-sm-offset-3 ">
+                                        <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="travaloLink form-control btn-login" value="Log In">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="text-center">
+                                            <a href="http://phpoll.com/recover" tabindex="5" class="forgot-password">Forgot Password?</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <form ng-submit="register()" id="register-form" role="form" ng-show="selectedTab === 'register'">
+                            <div class="form-group">
+                                <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" ng-model="registerValues.userName" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" ng-model="registerValues.email" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password" ng-model="registerValues.password" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password" ng-model="registerValues.matchingPassword" required>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-6 col-sm-offset-3">
+                                        <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="travaloLink form-control btn-register" value="Register Now">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
