@@ -1,19 +1,16 @@
 package io.pivotal.microservices.accounts;
 
+import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 
 import javax.sql.DataSource;
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.sql.SQLException;
 import java.util.logging.Logger;
 
 /**
@@ -38,7 +35,7 @@ public class AccountsConfiguration {
 	 * Creates an in-memory "rewards" database populated with test data for fast
 	 * testing
 	 */
-	@Bean
+/*	@Bean
 	public DataSource dataSource() {
 		logger.info("dataSource() invoked");
 
@@ -64,5 +61,18 @@ public class AccountsConfiguration {
 		}
 
 		return dataSource;
+	}*/
+	@Bean
+	@ConfigurationProperties("spring.datasource")
+	DataSource dataSource() throws SQLException {
+	/*	OracleDataSource dataSource = new OracleDataSource();
+		dataSource.setUser("Travalo");
+		dataSource.setPassword("xxqi1nkv");
+		dataSource.setURL("jdbc:oracle:thin:@//localhost:1521/XE");
+		dataSource.setImplicitCachingEnabled(true);
+		dataSource.setFastConnectionFailoverEnabled(true);
+		return dataSource;*/
+
+		return DataSourceBuilder.create().build();
 	}
 }

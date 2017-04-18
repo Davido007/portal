@@ -1,19 +1,20 @@
 package io.pivotal.microservices.services.accounts;
 
+import io.pivotal.microservices.Security.ActiveUserStore;
 import io.pivotal.microservices.accounts.AccountsConfiguration;
 import io.pivotal.microservices.services.user.IUserService;
 import io.pivotal.microservices.services.user.UserService;
-import oracle.jdbc.pool.OracleDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 
-import javax.sql.DataSource;
-import java.sql.SQLException;
+import java.util.Locale;
 import java.util.logging.Logger;
 
 /**
@@ -31,6 +32,9 @@ public class AccountsServer {
 
 /*    @Autowired
     protected UserRepository userRepository;*/
+
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     protected Logger logger = Logger.getLogger(AccountsServer.class.getName());
 
@@ -54,11 +58,21 @@ public class AccountsServer {
     public IUserService accountsService() {
         return new UserService(USER_SERVICE_URL);
     }
+
     @Bean
-    public PasswordEncoder encoder() {
-        return new BCryptPasswordEncoder(11);
+    public ActiveUserStore activeUserStore() {
+        return new ActiveUserStore();
     }
+
     @Bean
+    public LocaleResolver localeResolver() {
+        final CookieLocaleResolver cookieLocaleResolver = new CookieLocaleResolver();
+        cookieLocaleResolver.setDefaultLocale(Locale.ENGLISH);
+        return cookieLocaleResolver;
+    }
+
+
+/*    @Bean
     DataSource dataSource() throws SQLException {
         OracleDataSource dataSource = new OracleDataSource();
         dataSource.setUser("Travalo");
@@ -67,6 +81,6 @@ public class AccountsServer {
         dataSource.setImplicitCachingEnabled(true);
         dataSource.setFastConnectionFailoverEnabled(true);
         return dataSource;
-    }
+    }*/
 
 }

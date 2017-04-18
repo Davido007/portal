@@ -15,6 +15,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private String userName;
+
     private String firstName;
 
     private String lastName;
@@ -114,6 +116,14 @@ public class User {
         this.secret = secret;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -143,7 +153,7 @@ public class User {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("User [id=").append(id).append(", firstName=").append(firstName).append(", lastName=").append(lastName).append(", email=").append(email).append(", password=").append(password).append(", enabled=").append(enabled).append(", isUsing2FA=")
+        builder.append("User [id=").append(id).append(", userName=").append(userName).append(", firstName=").append(firstName).append(", lastName=").append(lastName).append(", email=").append(email).append(", password=").append(password).append(", enabled=").append(enabled).append(", isUsing2FA=")
                 .append(isUsing2FA).append(", secret=").append(secret).append(", roles=").append(roles).append("]");
         return builder.toString();
     }

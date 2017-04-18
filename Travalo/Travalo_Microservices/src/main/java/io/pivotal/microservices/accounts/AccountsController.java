@@ -95,10 +95,10 @@ public class AccountsController {
 			return accounts;
 		}
 	}*/
-	@RequestMapping(value="/login", method = RequestMethod.GET)
+	@RequestMapping(value="/login", method = RequestMethod.POST)
 	public String loginPage(ModelMap model) {
 		System.out.println("aaaa");
-		return "login";
+		return "{\"login\":\"login\"}";
 	}
 	@RequestMapping(value = "/user/registration", method = RequestMethod.POST)
 	@ResponseBody

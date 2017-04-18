@@ -63,13 +63,16 @@ public class UserService implements IUserService {
         if (emailExist(accountDto.getEmail())) {
             throw new UserAlreadyExistException("There is an account with that email adress: " + accountDto.getEmail());
         }
+        if (userNameExist(accountDto.getUserName())) {
+            throw new UserAlreadyExistException("There is an account with that username: " + accountDto.getUserName());
+        }
         final User user = new User();
 
         user.setFirstName(accountDto.getUserName());
         user.setPassword(passwordEncoder.encode(accountDto.getPassword()));
         user.setEmail(accountDto.getEmail());
         user.setUsing2FA(accountDto.isUsing2FA());
-        user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_USER")));
+        user.setRoles(Arrays.asList(roleRepository.findByName("USER_ROLE")));
         return repository.save(user);
     }
 
@@ -204,5 +207,8 @@ public class UserService implements IUserService {
 */
     private boolean emailExist(final String email) {
         return repository.findByEmail(email) != null;
+    }
+    private boolean userNameExist(final String userName) {
+        return repository.findByUserName(userName) != null;
     }
 }
