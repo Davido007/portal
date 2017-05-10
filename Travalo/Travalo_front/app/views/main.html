@@ -51,10 +51,10 @@
                     <div class="col-lg-12">
                         <form ng-submit="login()" id="login-form" role="form" ng-show="selectedTab === 'login'">
                             <div class="form-group">
-                                <input type="text" name="username" id="username" class="form-control" ng-model="credentials.username" required placeholder="Username" value="">
+                                <input type="text" name="username" id="username" class="form-control" ng-model="username" required placeholder="Username" value="">
                             </div>
                             <div class="form-group">
-                                <input type="password" name="password" id="password" class="form-control" ng-model="credentials.password" required placeholder="Password">
+                                <input type="password" name="password" id="password" class="form-control" ng-model="password" required placeholder="Password">
                             </div>
                             <div class="form-group text-center">
                                 <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
@@ -77,19 +77,21 @@
                                 </div>
                             </div>
                         </form>
-                        <form ng-submit="register()" id="register-form" role="form" ng-show="selectedTab === 'register'">
+                        
+                        <form  ng-submit="register()" id="register-form" role="form" ng-show="selectedTab === 'register'">
                             <div class="form-group">
-                                <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" ng-model="registerValues.userName" required>
+                                <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" ng-model="registerValues.userName" required  minlength="3">
                             </div>
                             <div class="form-group">
                                 <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" ng-model="registerValues.email" required>
                             </div>
                             <div class="form-group">
-                                <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password" ng-model="registerValues.password" required>
+                                <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password" ng-model="registerValues.password" required minlength="8">
                             </div>
                             <div class="form-group">
                                 <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password" ng-model="registerValues.matchingPassword" required>
                             </div>
+                            <span ng-show="showNotmatchingPasswordsError"style="color:red">Passwords are not the same</span>
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-sm-6 col-sm-offset-3">

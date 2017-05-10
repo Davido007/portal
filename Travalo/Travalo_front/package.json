@@ -1,7 +1,9 @@
 {
   "name": "angularbootstrapgruntbower",
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "angular-material": "^1.1.4"
+  },
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-autoprefixer": "~0.4.0",
