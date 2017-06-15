@@ -1,0 +1,14 @@
+com\travalo\hotelService\WebSecurityConfig.class
+com\travalo\hotelService\configuration\HotelsConfiguration.class
+com\travalo\hotelService\HotelServer.class
+com\travalo\hotelService\models\HotelResponse.class
+com\travalo\hotelService\models\Place.class
+com\travalo\hotelService\services\HotelServiceImpl.class
+com\travalo\hotelService\services\HotelServiceImpl$1.class
+com\travalo\hotelService\models\Geometry.class
+com\travalo\hotelService\models\HotelProperties.class
+Main.class
+com\travalo\hotelService\services\HotelServiceImpl$2.class
+com\travalo\hotelService\models\Hotel.class
+com\travalo\hotelService\models\PlaceResponse.class
+com\travalo\hotelService\services\HotelService.class

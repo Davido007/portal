@@ -1,0 +1,103 @@
+<script src="bower_components/angular-material/angular-material.min.js"></script>
+<div class="jumbotron row" ng-init="adultCounter = 1">
+    <div>
+        <p>Book Your Flight</p>
+    </div>
+    <div class="panel panel-login travaloLoginForm">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-12">
+                    <form ng-submit="login()" id="login-form" role="form">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5 class="col-md-4">One Way Trip</h5>
+                                <input class="col-md-1" style="margin-top:2%;" type="checkbox" ng-model="isOneWayTrip">
+                                <h5 class="col-md-4">Only Direct Flights</h5>                                
+                                <input class="col-md-1" style="margin-top:2%;" type="checkbox" ng-model="flightForm.isNonStop">
+                            </div>
+                        </div>
+                        <div class "row">
+                            <div class="col-md-6 form-group">
+                                <input type="text" ng-keyup="getOrigins()" name="origin" id="origin" class="form-control" ng-model="flightForm.origin.name" required value="" placeholder="From">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <input type="text" ng-keyup="getDestinations()" name="destination" id="destination" class="form-control" ng-model="flightForm.destination.name" required value="" placeholder="To">
+                            </div>
+                        </div>
+                        <div class "row col-md-12">
+                            <div class="col-md-6">
+                                <div ng-show="areOriginsShowed" class="list-group col-md-8">
+                                    <!-- <a ng-repeat="place in suggestions" href="#" class="list-group-item disabled">{{place.label}} in {{place.location}}</a>-->
+                                    <input ng-repeat="origin in origins" name="login-submit" id="login-submit" tabindex="4" class="travaloLink form-control btn-login suggestions" value={{origin.name}} ng-click="onOriginsClicked(origin)">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div ng-show="areDestinationsShowed" class="list-group col-md-8">
+                                    <!-- <a ng-repeat="place in suggestions" href="#" class="list-group-item disabled">{{place.label}} in {{place.location}}</a>-->
+                                    <input ng-repeat="destination in destinations" name="login-submit" id="login-submit" tabindex="4" class="travaloLink form-control btn-login suggestions" value={{destination.name}} ng-click="onDestinationsClicked(destination)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class "row form-group">
+                            <div class="col-md-6">
+                                <h5 class="col-md-4">Adults:</h5>
+                                <a style="float:left; width:5%;" ng-click="decreaseAdultCounter()">
+                                    <span class="glyphicon glyphicon-minus-sign"></span>
+                                </a>
+                                <div style="width:25%; float:left; margin: 0 2% 0 2%">
+                                    <input type="text" name="adults" id="adults" class="form-control" ng-model="flightForm.adults" required ng-value="adultCounter">
+                                </div>
+                                <a style="float:left; width:5%;" ng-click="flightForm.adults=flightForm.adults+1">
+                                    <span class="glyphicon glyphicon-plus-sign"></span>
+                                </a>
+                                <h5 class="col-md-4">Children:</h5>
+                                <a style="float:left; width:5%;" ng-click="decreaseChildCounter()">
+                                    <span class="glyphicon glyphicon-minus-sign"></span>
+                                </a>
+                                <div style="width:25%; float:left; margin: 0 2% 0 2%">
+                                    <input type="text" name="adults" id="adults" class="form-control" ng-model="flightForm.children" required ng-value="flightForm.children">
+                                </div>
+                                <a style="float:left; width:5%;" ng-click="flightForm.children=flightForm.children+1">
+                                    <span class="glyphicon glyphicon-plus-sign"></span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class='col-sm-6'>
+                                <div style="width:40%; float:left; margin-right:8%;">
+                                    <input type='text' ng-model="flightForm.departureDate" class="form-control" id='datetimepicker4' length="5" placeholder="Departure Date" />
+                                </div>
+                                <div style="width:40%; float:left; margin-left:8%;" ng-hide="isOneWayTrip">
+                                    <input type='text' ng-model="flightForm.returnDate" class="form-control" id='datetimepicker3' length="5" placeholder="Return Date" />
+                                </div>
+                            </div>
+                            <script type="text/javascript">
+                                $(function() {
+                                    $('#datetimepicker4').datetimepicker({
+                                        locale: 'pl',
+                                        format: 'YYYY-MM-DD',
+                                    });
+                                });
+                                $(function() {
+                                    $('#datetimepicker3').datetimepicker({
+                                        locale: 'pl',
+                                        format: 'YYYY-MM-DD',
+                                    });
+                                });
+
+                            </script>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-6 col-sm-offset-3 ">
+                                    <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="travaloLink form-control btn-login" value="Search" ng-click="searchFlights()">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

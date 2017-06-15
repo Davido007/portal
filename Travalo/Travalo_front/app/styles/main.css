@@ -59,11 +59,30 @@ hr {
 .travaloIcon {
     font-size: 300%;
     height: 100%;
-    width: 30%;
+    width: 20%;
     padding: 1%;
     color: white;
     text-align: center;
     float: left;
+}
+
+.suggestions:hover {
+    cursor: pointer;
+    border-radius: 6px;
+    border-style: solid;
+    border-width: 4px;
+    border-color: #e5e5e5;
+}
+
+.carrier{
+    background-color: #2B2C59;
+    border-radius: 6px;
+    width: 50%;
+    color: white;
+    margin: auto;
+}
+.hotelSearchPanel {
+    background-color: #e5e5e5;
 }
 
 .travaloIcon img {
@@ -237,7 +256,7 @@ div.vertical-line {
 
 @media screen and (min-width: 768px) {
     .container {
-        max-width: 70%;
+        max-width: 75%;
     }
     .navbar {
         background-color: #eeeeee;

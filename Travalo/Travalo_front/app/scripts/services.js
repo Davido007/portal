@@ -25,26 +25,28 @@ angular.module('angularBootstrapGruntBowerApp').service('Session', function () {
 });
 
 
-angular.module('angularBootstrapGruntBowerApp').service('AuthSharedService', function ($rootScope, $http, $resource, authService, Session) {
+angular.module('angularBootstrapGruntBowerApp').service('AuthSharedService', function ($rootScope, $http, $resource, authService, Session, $location, $window) {
     return {
         login: function (userName, password, rememberMe) {
             var config = {
                 ignoreAuthModule: 'ignoreAuthModule',
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
             };
             $http.post('http://localhost:2222/authenticate', $.param({
-                username: userName,
-                password: password,
-                rememberme: rememberMe
-            }), config)
+                    username: userName,
+                    password: password,
+                    rememberme: rememberMe
+                }), config)
                 .then(function successCallback(response) {
                     authService.loginConfirmed(response.data);
                 }, function errorCallback(response) {
-                  $rootScope.authenticationError = true;
+                    $rootScope.authenticationError = true;
                     Session.invalidate();
                 });
         },
-        
+
 
 
 
@@ -65,7 +67,7 @@ angular.module('angularBootstrapGruntBowerApp').service('AuthSharedService', fun
             var isAuthorized = false;
             angular.forEach(authorizedRoles, function (authorizedRole) {
                 var authorized = (!!Session.login &&
-                Session.userRoles.indexOf(authorizedRole) !== -1);
+                    Session.userRoles.indexOf(authorizedRole) !== -1);
                 if (authorized || authorizedRole == '*') {
                     isAuthorized = true;
                 }
@@ -79,6 +81,8 @@ angular.module('angularBootstrapGruntBowerApp').service('AuthSharedService', fun
             $http.get('http://localhost:2222/logout');
             Session.invalidate();
             authService.loginCancelled();
+            $location.path('/').replace();
+            $window.scrollTo(0, 0);
         }
     };
 });
@@ -87,7 +91,11 @@ angular.module('angularBootstrapGruntBowerApp').service('HomeService', function 
     return {
         getTechno: function () {
             var userResource = $resource('resources/json/techno.json', {}, {
-                query: {method: 'GET', params: {}, isArray: true}
+                query: {
+                    method: 'GET',
+                    params: {},
+                    isArray: true
+                }
             });
             return userResource.query();
         }
@@ -99,7 +107,11 @@ angular.module('angularBootstrapGruntBowerApp').service('UsersService', function
     return {
         getAll: function () {
             var userResource = $resource('users', {}, {
-                query: {method: 'GET', params: {}, isArray: true}
+                query: {
+                    method: 'GET',
+                    params: {},
+                    isArray: true
+                }
             });
             return userResource.query();
         }
@@ -111,11 +123,13 @@ angular.module('angularBootstrapGruntBowerApp').service('TokensService', functio
     return {
         getAll: function () {
             var tokensResource = $resource('security/tokens', {}, {
-                query: {method: 'GET', params: {}, isArray: true}
+                query: {
+                    method: 'GET',
+                    params: {},
+                    isArray: true
+                }
             });
             return tokensResource.query();
         }
     }
 });
-
-

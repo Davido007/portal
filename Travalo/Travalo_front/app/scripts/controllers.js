@@ -60,7 +60,6 @@ angular.module('angularBootstrapGruntBowerApp').controller('LoginController', fu
 
     })
     .controller('LogoutController', function (AuthSharedService) {
-    console.log("kk");
         AuthSharedService.logout();
     })
     .controller('ErrorController', function ($scope, $routeParams) {

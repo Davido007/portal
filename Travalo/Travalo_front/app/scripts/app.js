@@ -25,6 +25,33 @@ angular.module('angularBootstrapGruntBowerApp', [
             .when('/', {
                 templateUrl: 'views/main.html',
                 controller: 'MainCtrl'
+            }).when('/emailConfirmed', {
+                templateUrl: 'views/emailConfirmed.html',
+                controller: 'EmailConfirmedController'
+            }).when('/bookFlight', {
+                templateUrl: 'views/bookFlight.html',
+                controller: 'FlightController'
+            }).when('/bookFlight/result', {
+                templateUrl: 'views/searchFlightsResult.html',
+                controller: 'FlightController'
+            }).when('/searchHotel', {
+                templateUrl: 'views/searchHotel.html',
+                controller: 'HotelController'
+            }).when('/searchHotel/result', {
+                templateUrl: 'views/searchHotelResult.html',
+                controller: 'HotelController'
+            }).when('/searchCar', {
+                templateUrl: 'views/searchCar.html',
+                controller: 'CarController'
+            }).when('/searchVacations', {
+                templateUrl: 'views/searchVacation.html',
+                controller: 'VacationController'
+            }).when('/searchGuides', {
+                templateUrl: 'views/searchGuides.html',
+                controller: 'GuideController'
+            }).when('/searchPlaces', {
+                templateUrl: 'views/searchPlaces.html',
+                controller: 'PlacesController'
             }).when('/logout', {
                 template: " ",
                 controller: "LogoutController"
@@ -42,6 +69,7 @@ angular.module('angularBootstrapGruntBowerApp', [
     .run(function ($rootScope, $location, $http, AuthSharedService, Session, USER_ROLES, $q, $timeout) {
 
         $rootScope.$on('$routeChangeStart', function (event, next) {
+            console.log("kkkkkk");
 
             if (next.originalPath === "/login" && $rootScope.authenticated) {
                 event.preventDefault();
@@ -52,6 +80,7 @@ angular.module('angularBootstrapGruntBowerApp', [
                 event.preventDefault();
                 $rootScope.$broadcast("event:auth-forbidden", {});
             }
+            console.log("on 1");
         });
 
         /*        $rootScope.$on('$routeChangeSuccess', function (scope, next, current) {
@@ -75,17 +104,28 @@ angular.module('angularBootstrapGruntBowerApp', [
                 $location.path(nextLocation).replace();
             }, delay);
         });
-
+    
         // Call when the 401 response is returned by the server
         $rootScope.$on('event:auth-loginRequired', function (event, data) {
+            console.log("on 2");
+            console.log(data);
+            console.log($location.path());
             if ($rootScope.loadingAccount && data.status !== 401) {
                 $rootScope.requestedUrl = $location.path()
                 $location.path('/loading');
-            } else {
+            }
+                       else if($location.path() === "/emailConfirmed") {
+                            console.log("ddd");
+                            Session.invalidate();
+                            $rootScope.authenticated = false;
+                            $rootScope.loadingAccount = false;
+                            $location.path('/emailConfirmed');
+                        } 
+            else {
                 Session.invalidate();
                 $rootScope.authenticated = false;
                 $rootScope.loadingAccount = false;
-                $location.path('/login');
+                $location.path('/');
             }
         });
 

@@ -1,0 +1,80 @@
+<script src="bower_components/angular-material/angular-material.min.js"></script>
+<div class="jumbotron row" ng-init="adultCounter = 1">
+    <div>
+        <p>Flights</p>
+    </div>
+    <div class="panel panel-login travaloLoginForm">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class "row form-group">
+                        <div class="col-md-12">
+                            <div class="panel panel-default hotelSearchPanel" ng-repeat="travel in travels">
+                                <!-- Default panel contents -->
+
+                                <div style="padding: 2%;" class="row">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <h2 style="margin-bottom: 10%;">{{travel.mainFlight.origin}}</h2>
+                                        </div>
+                                        <div class="col-md-4">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h2 style="margin-bottom: 10%;">{{travel.mainFlight.destination}}</h2>
+                                        </div>
+                                    </div>
+                                    <div class="carrier">{{travel.mainFlight.carrier}}</div>
+                                    <div class="row" style="margin-top: 3%;">
+                                        <div class="col-md-4" style="margin-top: 7%;">
+                                            <p>{{travel.mainFlight.departureDate}}</p>
+                                            <p>{{travel.mainFlight.departureTime}}</p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p ng-show="{{travel.mainFlight.through!==null}}">InDirect Flight</p>
+                                            <p ng-show="{{travel.mainFlight.through===null}}">Direct Flight</p>
+                                            <img class="col-md-12" src="images/arrow.png" alt="main">
+                                            <p>{{travel.mainFlight.through}}</p>
+                                            <p>{{travel.mainFlight.duration}}</p>
+                                        </div>
+                                        <div class="col-md-4" style="margin-top: 7%;">
+                                            <p>{{travel.mainFlight.arrivalDate}}</p>
+                                            <p>{{travel.mainFlight.arrivalTime}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="carrier">{{travel.returnFlight.carrier}}</div>
+                                    <div class="row" style="margin-top: 3%;" ng-show="{{travel.returnFlight !==null}}">
+                                        <div class="col-md-4" style="margin-top: 7%;">
+                                            <p>{{travel.returnFlight.arrivalDate}}</p>
+                                            <p>{{travel.returnFlight.arrivalTime}}</p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p ng-show="{{travel.returnFlight.through!==null}}">InDirect Flight</p>
+                                            <p ng-show="{{travel.returnFlight.through===null}}">Direct Flight</p>
+                                            <img class="col-md-12" src="images/returnArrow.png" alt="return">
+                                            <p>{{travel.returnFlight.through}}</p>
+                                            <p>{{travel.returnFlight.duration}}</p>
+                                        </div>
+                                        <div class="col-md-4" style="margin-top: 7%;">
+                                            <p>{{travel.returnFlight.departureDate}}</p>
+                                            <p>{{travel.returnFlight.departureTime}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2"></div>
+                                        <h3 class="col-md-4">{{travel.price}}$</h3>
+                                        <div class="col-md-4" style="margin-top: 2%;">
+                                            <form action="http://booking.com">
+                                                <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="travaloLink form-control btn-login" value="Book">
+                                            </form>
+                                        </div>
+                                        <div class="col-md-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

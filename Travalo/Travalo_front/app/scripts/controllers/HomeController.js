@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('angularBootstrapGruntBowerApp')
-    .controller('MainCtrl', function ($scope, $rootScope, $http, urls, $cookies, AuthSharedService) {
+    .controller('MainCtrl', function ($scope, $rootScope, $http, urls, $cookies, $routeParams, AuthSharedService) {
         $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -60,6 +60,7 @@ angular.module('angularBootstrapGruntBowerApp')
                         $scope.registrationFail = false;
                         $scope.errorMessages = [];
                         console.log("success");
+                        $scope.registerValues = {};
                     }
                     $scope.loginTabClick();
                 }, function errorCallback(response) {
@@ -88,6 +89,22 @@ angular.module('angularBootstrapGruntBowerApp')
                     }
                 });
             }
+        };
+        $scope.flight = function () {
+            $http.post(urls.backendUrl + "/airports", "W").then(function successCallback(response) {
+                console.log("1");
+            }, function errorCallback(response) {
+                console.log("2");
+            });
+
+        };
+        $scope.flight1 = function () {
+            $http.get(urls.backendUrl + "/test", $scope.registerValues).then(function successCallback(response) {
+                console.log("1");
+            }, function errorCallback(response) {
+                console.log("2");
+            });
+
         };
         /*$scope.register = function () {
                             console.log(config.apiUrl);

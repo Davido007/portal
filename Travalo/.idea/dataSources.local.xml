@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="TravaloFlights" uuid="df630389-5692-408a-bf18-8e6957f35c0e">
+      <secret-storage>master_key</secret-storage>
+      <user-name>TravaloFlights</user-name>
+      <introspection-scope>*:PUBLIC,SYS,SYSTEM,TRAVALO</introspection-scope>
+      <resolve-scope>*:PUBLIC,TRAVALO</resolve-scope>
+    </data-source>
+  </component>
+</project>
