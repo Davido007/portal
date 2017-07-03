@@ -1,6 +1,8 @@
 package io.pivotal.microservices.accounts;
 
+import com.travalo.carservice.models.CarExpediaResponse;
 import com.travalo.carservice.models.CarSearchRequest;
+import com.travalo.guideservice.models.GuideApiResponse;
 import com.travalo.hotelService.models.HotelResponse;
 import com.travalo.hotelService.models.PlaceResponse;
 import io.pivotal.microservices.exceptions.AccountNotFoundException;
@@ -52,6 +54,12 @@ public class AccountsController {
 
     @Autowired
     private CarClient carClient;
+
+    @Autowired
+    private HolidaysClient holidaysClient;
+
+    @Autowired
+    private GuideClient guideClient;
 
     @Autowired
     IUserService service;
@@ -201,16 +209,16 @@ public class AccountsController {
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public
-    GenericResponse test() {
+    public GuideApiResponse test() {
         System.out.println("here");
-        System.out.println(carClient.test1());
+//        guideClient.getSuggestions("yolo");
+        //System.out.println(guideClient.getSuggestions("yolo"));
         // flightService.findFlights();
         // System.out.println(hotelClient.test("Ł"));
         //System.out.println(greetingClient.test());
         //AirportsResponse airports = flightsClient.getAirport("W");
         //  System.out.println(airports.size()+"aaaaaaaaaaaaaaa");
-        return new GenericResponse("oki");
+        return guideClient.getSuggestions("yolo");
     }
 
     @RequestMapping(value = "/airports", method = RequestMethod.POST)
@@ -253,13 +261,16 @@ public class AccountsController {
     @RequestMapping(value = "/cars", method = RequestMethod.POST)
     public
     @ResponseBody
-    FlightResponse getCars(@RequestBody final CarSearchRequest request) {
+    CarExpediaResponse getCars(@RequestBody final CarSearchRequest request) {
         //System.out.println("here" + request.toString());
-       // System.out.println(request.getIsNonStop());
+        // System.out.println(request.getIsNonStop());
         System.out.println(request.getReturnCity());
-        FlightResponse flights1 = new FlightResponse();
-        //System.out.println(carClient.getCars(request));
-        return flights1;
+        // FlightResponse flights1 = new FlightResponse();
+        CarExpediaResponse response = carClient.getCars(request.getOriginCity(), request.getReturnCity(), request.getPickUpDate(),
+                request.getDropOffDate(), request.getOriginCountry(), request.getReturnCountry());
+/*        System.out.println(carClient.getCars(request.getOriginCity(), request.getReturnCity(), request.getPickUpDate(),
+                request.getDropOffDate(), request.getOriginCountry(), request.getReturnCountry()));*/
+        return response;
 
     }
 

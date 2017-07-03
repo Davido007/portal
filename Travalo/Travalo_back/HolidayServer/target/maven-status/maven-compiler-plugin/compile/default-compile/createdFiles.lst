@@ -1,0 +1,13 @@
+com\travalo\holidayservice\services\HolidaysService.class
+com\travalo\holidayservice\services\HolidaysServiceImpl.class
+com\travalo\holidayservice\models\RetailHotelPricingModel.class
+com\travalo\holidayservice\models\HolidaysApiResponse.class
+com\travalo\holidayservice\models\HolidaysOffersResponse.class
+com\travalo\holidayservice\models\Holidays.class
+com\travalo\holidayservice\models\HolidaysResult.class
+com\travalo\holidayservice\configuration\HolidaysConfiguration.class
+com\travalo\holidayservice\Main.class
+com\travalo\holidayservice\services\HolidaysServiceImpl$1.class
+com\travalo\holidayservice\models\RetailHotelInfoModel.class
+com\travalo\holidayservice\HolidaysServer.class
+com\travalo\holidayservice\WebSecurityConfig.class

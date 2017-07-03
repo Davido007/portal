@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('angularBootstrapGruntBowerApp')
-    .controller('CarController', function ($scope, $rootScope, $http, urls, $cookies, $routeParams, AuthSharedService) {
+    .controller('CarController', function ($scope, $rootScope, $location, $http, urls, $cookies, $routeParams, AuthSharedService) {
         $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -13,6 +13,7 @@ angular.module('angularBootstrapGruntBowerApp')
         $scope.childCounter = 0;
         $scope.roomsCounter = 1;
         $scope.suggestions = [];
+        $scope.carData = {};
         $scope.returnSuggestions = [];
         $scope.isReturnAndPickUpTheSame = false;
 
@@ -60,18 +61,28 @@ angular.module('angularBootstrapGruntBowerApp')
         };
         $scope.onSuggestionOriginClicked = function (suggestion) {
             $scope.carData.originCity = suggestion.label;
+            $scope.carData.originCountry = suggestion.location;
             $scope.areSuggestionsShowed = false;
         };
         $scope.onSuggestionReturnClicked = function (suggestion) {
             $scope.carData.returnCity = suggestion.label;
+            $scope.carData.returnCountry = suggestion.location;
             $scope.areSuggestionsReturnShowed = false;
         };
         $scope.searchCars = function () {
+            console.log($scope.carData.pickUpDate);
+
+            $scope.carData.pickUpDate = $('#datetimepicker5').val();
+            //$rootScope.flights = response.data.flights;
+            $scope.carData.dropOffDate = $('#datetimepicker6').val();
+            console.log($scope.carData.pickUpDate);
             $http.post(urls.backendUrl + "/cars", $scope.carData).then(function successCallback(response) {
                 if (response !== undefined) {
                     // $scope.suggestions = response.data.places;
                     //$scope.areSuggestionsShowed = true;
-                    console.log(response);
+                    console.log(response.data.offers);
+                    $rootScope.cars = response.data.offers;
+                    $location.path("/searchCar/result");
 
                 } else {
                     //$scope.areSuggestionsShowed = false;

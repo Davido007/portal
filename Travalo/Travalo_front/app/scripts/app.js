@@ -43,6 +43,9 @@ angular.module('angularBootstrapGruntBowerApp', [
             }).when('/searchCar', {
                 templateUrl: 'views/searchCar.html',
                 controller: 'CarController'
+            }).when('/searchCar/result', {
+                templateUrl: 'views/searchCarResult.html',
+                controller: 'CarController'
             }).when('/searchVacations', {
                 templateUrl: 'views/searchVacation.html',
                 controller: 'VacationController'

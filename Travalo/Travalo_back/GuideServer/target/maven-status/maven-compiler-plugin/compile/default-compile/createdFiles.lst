@@ -1,0 +1,15 @@
+com\travalo\guideservice\services\GuideServiceImpl$1.class
+com\travalo\guideservice\models\GuideApiResponse.class
+com\travalo\guideservice\models\HotelResponse.class
+com\travalo\guideservice\GuideServer.class
+com\travalo\guideservice\models\Hotel.class
+com\travalo\guideservice\services\GuideServiceImpl.class
+com\travalo\guideservice\configuration\HotelsConfiguration.class
+com\travalo\guideservice\models\Itinerary.class
+com\travalo\guideservice\models\Place.class
+com\travalo\guideservice\Main.class
+com\travalo\guideservice\models\ImageOpt.class
+com\travalo\guideservice\WebSecurityConfig.class
+com\travalo\guideservice\models\Geometry.class
+com\travalo\guideservice\services\GuideService.class
+com\travalo\guideservice\models\HotelProperties.class
