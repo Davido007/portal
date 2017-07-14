@@ -12,7 +12,6 @@ import io.pivotal.microservices.services.user.IUserService;
 import io.pivotal.microservices.services.web.AirportsResponse;
 import io.pivotal.microservices.services.web.FlightRequest;
 import io.pivotal.microservices.services.web.FlightResponse;
-import io.pivotal.microservices.users.UserDTO;
 import io.pivotal.microservices.utils.GenericResponse;
 import org.hibernate.annotations.GenericGenerator;
 import org.slf4j.Logger;
@@ -26,12 +25,12 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
+import userService.DTOs.UserDTO;
 
 import javax.persistence.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.Calendar;
-import java.util.Locale;
+import java.util.List;
 
 
 /**
@@ -47,6 +46,9 @@ public class AccountsController {
     private final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
     @Autowired
+    UserRepository userRepository;
+
+    @Autowired
     private FlightsClient flightsClient;
 
     @Autowired
@@ -56,10 +58,16 @@ public class AccountsController {
     private CarClient carClient;
 
     @Autowired
+    private UserClient userClient;
+
+    @Autowired
     private HolidaysClient holidaysClient;
 
     @Autowired
     private GuideClient guideClient;
+
+    @Autowired
+    private FriendsClient friendsClient;
 
     @Autowired
     IUserService service;
@@ -70,8 +78,6 @@ public class AccountsController {
     @Autowired
     private ApplicationEventPublisher eventPublisher;
 
-    @Autowired
-    protected UserRepository userRepository;
 
     @Autowired
     private MessageSource messages;
@@ -144,55 +150,143 @@ public class AccountsController {
 
     @RequestMapping(value = "/user/registration", method = RequestMethod.POST)
     @ResponseBody
-    public GenericResponse registerUserAccount(@RequestBody @Valid final UserDTO accountDto, final HttpServletRequest request) {
+    public userService.utils.GenericResponse registerUserAccount(@RequestBody @Valid final UserDTO accountDto, final HttpServletRequest request) {
         LOGGER.debug("Registering user account with information: {}", accountDto);
+
         System.out.println(accountDto.toString());
-        final User registered = service.registerNewUserAccount(accountDto);
-        eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered, request.getLocale(), getAppUrl(request)));
-        return new GenericResponse("success");
+        return userClient.registerNewUserAccount(accountDto.getUserName(),
+                accountDto.getPassword(), accountDto.getMatchingPassword(),
+                accountDto.getEmail(), accountDto.isUsing2FA(), request);
     }
 
     @RequestMapping(value = "/regitrationConfirm", method = RequestMethod.GET)
     public ModelAndView confirmRegistration
             (WebRequest request, Model model, @RequestParam("token") String token) {
-
-        Locale locale = request.getLocale();
-
-        VerificationToken verificationToken = service.getVerificationToken(token);
-        if (verificationToken == null) {
-            String message = messages.getMessage("auth.message.invalidToken", null, locale);
-            model.addAttribute("message", message);
-            //  return "redirect:/badUser.html?lang=" + locale.getLanguage();
-        }
-
-        User user = verificationToken.getUser();
-        Calendar cal = Calendar.getInstance();
-        System.out.println(verificationToken);
-        System.out.println(verificationToken.getExpiryDate());
-
-
-        if ((verificationToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
-            String messageValue = messages.getMessage("auth.message.expired", null, locale);
-            model.addAttribute("message", messageValue);
-            // return "redirect:/badUser.html?lang=" + locale.getLanguage();
-        }
-
-        user.setEnabled(true);
-        service.saveRegisteredUser(user);
+        userClient.confirmRegistration(request.getLocale(), token);
         return new ModelAndView("redirect:" + "http://127.0.0.1:9000/#!/emailConfirmed");
     }
+
+
+/*    @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+    public String authenticate(HttpServletRequest request) {
+        String inputLine = null;
+        StringBuilder output = new StringBuilder();
+        try {
+//            System.out.println(pickUpCity);
+
+            // Example of call to the API
+            StringBuilder endpoint = new StringBuilder("http://localhost:3339/authenticate");
+     //       endpoint.append("pickUpSearchTerm=" + pickUpCity + pickUpCountry);
+    *//*        if (dropOffCity != null) {
+                endpoint.append("&dropOffSearchTerm=" + dropOffCity + dropOffCountry);
+            }*//*
+            //  String reformatedPickUpDate = pickUpDate.replace("/","%2F");
+          //  endpoint.append("&pickUpDate=" + pickUpDate);
+            // String reformatedDropOffDate = dropOffDate.replace("/","%2F");
+           // endpoint.append("&dropOffDate=" + dropOffDate);
+           // System.out.println(endpoint + "ooooooooooooooooooooooooooooooooo");
+//            https://www.expedia.com/carsearch/pickup/list/results?pickUpDate=06%2F25%2F2017&pickUpTime=1030AM&dropOffDate=06%2F27%2F2017&dropOffTime=1030AM&pickUpSearchType=4&pickUpSearchTerm=Warszawa&dropOffSearchTerm=Lodz"
+            //endpoint.append(text+"/hotels");
+
+            //String urll = "https://www.expedia.com/carsearch/pickup/list/results?pickUpDate=06%2F25%2F2017&pickUpTime=1030AM&dropOffDate=06%2F27%2F2017&dropOffTime=1030AM&pickUpSearchType=4&pickUpSearchTerm=Warszawa&dropOffSearchTerm=Lodz";
+            //URL url = new URL(endpoint.toString());
+            //https://www.expedia.com/carsearch/pickup/list/results?pickUpSearchTerm=Warszawa&pickUpDate=06/21/2017&dropOffDate=06/23/2017
+            //https://www.expedia.com/carsearch/pickup/list/results?pickUpSearchTerm=Warsaw&pickUpDate=06/21/2017&dropOffDate=06/23/2017
+            //https://www.expedia.com/carsearch/pickup/list/results?pickUpSearchTerm=Warsaw&pickUpDate=06/21/2017&dropOffDate=06/23/2017
+           // URLConnection connection = url.openConnection();
+            //connection.setRequestProperty("api_key", apiKey);
+            //connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11");
+
+            //System.out.println(url);
+            String url = "http://localhost:3339/authenticate";
+            URL obj = new URL(url);
+            HttpURLConnection con =  (HttpURLConnection)obj.openConnection();
+            con.setDoOutput(true);
+
+            //add reuqest header
+            con.setRequestMethod("POST");
+            con.setRequestProperty("Accept", "application/json");
+            con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            con.setRequestProperty("username", "aaaa");
+            con.setRequestProperty("login", "aaaa1");
+            String urlParameters  = "username=aaa&password=xxqi1nkv&param3=c";
+            byte[] postData       = urlParameters.getBytes( StandardCharsets.UTF_8 );
+            try( DataOutputStream wr = new DataOutputStream( con.getOutputStream())) {
+                wr.write( postData );
+            }
+            int responseCode = con.getResponseCode();
+            System.out.println(responseCode);
+            InputStream ins = con.getInputStream();
+           InputStreamReader isr = new InputStreamReader(ins);
+           BufferedReader in = new BufferedReader(isr);
+            //   System.out.println();
+            System.out.println(con.getInputStream());
+
+            while ((inputLine = in.readLine()) != null) {
+                output.append(inputLine);
+                System.out.println(inputLine);
+            }
+
+//            System.out.println(json);
+           // in.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(output);
+*//*        SecurityContext securityContext = SecurityContextHolder.getContext();
+        Authentication auth = userClient.getAuthentication().se;
+        securityContext.setAuthentication(auth);*//*
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        Authentication authentication = securityContext.getAuthentication();
+        securityContext.setAuthentication(authentication);
+        if(userClient.isAuthenticated()){
+            authentication.setAuthenticated(true);
+            securityContext.setAuthentication(authentication);
+            //SecurityContextHolder.getContext().getAuthentication().setAuthenticated(true);
+            System.out.println(true);
+            System.out.println(SecurityContextHolder.getContext().getAuthentication().isAuthenticated());
+        } else {
+            System.out.println(false);
+            SecurityContextHolder.getContext().getAuthentication().setAuthenticated(false);
+        }
+        Authentication authentication1 =  new UsernamePasswordAuthenticationToken(person, null, person.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication1);
+*//*        HttpSession session = request.getSession(true);
+        session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);*//*
+        return output.toString();
+    }*/
 
 
     @RequestMapping(value = "/security/account", method = RequestMethod.GET)
     public
     @ResponseBody
     User getUserAccount() {
-        System.out.println("nsns" + userRepository);
-        System.out.println(SecurityUtils.getCurrentLogin());
+        System.out.println("security");
+        //System.out.println("nsns" + userRepository);
+        //System.out.println(userService.utils.SecurityUtils.getCurrentLogin());
         User user = userRepository.findByLogin(SecurityUtils.getCurrentLogin());
+
         System.out.println("lll" + user);
-        user.setPassword(null);
+        //user.setPassword(null);
         return user;
+    }
+
+    @RequestMapping(value = "/searchFriends", method = RequestMethod.POST)
+    public List<userService.models.User> searchFriends(@RequestBody final String login) {
+        System.out.println("here");
+//        guideClient.getSuggestions("yolo");
+        //System.out.println(guideClient.getSuggestions("yolo"));
+        // flightService.findFlights();
+        // System.out.println(hotelClient.test("Ł"));
+        //System.out.println(greetingClient.test());
+        //AirportsResponse airports = flightsClient.getAirport("W");
+        //  System.out.println(airports.size()+"aaaaaaaaaaaaaaa");
+        System.out.println(login);
+        //List<userService.models.User> foundUsers = userRepository.findByLoginStartingWith(login);
+        // System.out.println(foundUsers);
+        return null;
+        //return friendsClient.searchFriends("Yolo");
     }
 
     @RequestMapping(value = "/flights12", method = RequestMethod.POST)

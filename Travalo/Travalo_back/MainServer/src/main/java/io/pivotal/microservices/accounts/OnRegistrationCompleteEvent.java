@@ -13,9 +13,9 @@ public class OnRegistrationCompleteEvent extends ApplicationEvent {
 
     private final String appUrl;
     private final Locale locale;
-    private final User user;
+    private final userService.models.User user;
 
-    public OnRegistrationCompleteEvent(final User user, final Locale locale, final String appUrl) {
+    public OnRegistrationCompleteEvent(final userService.models.User user, final Locale locale, final String appUrl) {
         super(user);
         this.user = user;
         this.locale = locale;
@@ -32,7 +32,7 @@ public class OnRegistrationCompleteEvent extends ApplicationEvent {
         return locale;
     }
 
-    public User getUser() {
+    public userService.models.User getUser() {
         return user;
     }
 

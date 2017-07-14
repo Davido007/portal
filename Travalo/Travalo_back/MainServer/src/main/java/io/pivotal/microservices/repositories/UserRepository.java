@@ -1,19 +1,22 @@
 package io.pivotal.microservices.repositories;
 
-/**
- * Created by DPLICHTA on 4/12/2017.
- */
-
-import io.pivotal.microservices.accounts.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
 
-public interface UserRepository extends JpaRepository<User, Long> {
-    User findByEmail(String email);
-    User findByLogin(String login);
+/**
+ * Created by DPLICHTA on 7/14/2017.
+ */
+@Repository
+public interface UserRepository extends JpaRepository<io.pivotal.microservices.accounts.User, Long> {
+    io.pivotal.microservices.accounts.User findByEmail(String email);
+    io.pivotal.microservices.accounts.User findByLogin(String login);
+
+    List<io.pivotal.microservices.accounts.User> findByLoginStartingWith(String login);
     //User findByUserName(String userName);
 
     @Override
-    void delete(User user);
+    void delete(io.pivotal.microservices.accounts.User user);
 
 }

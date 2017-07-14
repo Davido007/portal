@@ -1,9 +1,5 @@
 package io.pivotal.microservices.services.accounts;
 
-import io.pivotal.microservices.accounts.User;
-import io.pivotal.microservices.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.Authentication;
@@ -14,8 +10,8 @@ import org.springframework.security.core.AuthenticationException;
  */
 public class CustomAuthenticationProvider extends DaoAuthenticationProvider {
 
-    @Autowired
-    private UserRepository userRepository;
+/*    @Autowired
+    private UserRepository userRepository1;*/
 
     @Override
     public Authentication authenticate(Authentication auth) throws AuthenticationException {
@@ -23,12 +19,12 @@ public class CustomAuthenticationProvider extends DaoAuthenticationProvider {
         System.out.println("kk"+auth.getName());
         System.out.println("lllllllllllllllllllllllllllllllllllll");
         final String verificationCode = ((CustomWebAuthenticationDetails) auth.getDetails()).getVerificationCode();
-        final User user = userRepository.findByEmail(auth.getName());
+        //final userService.models.User user = userRepository1.findByEmail(auth.getName());
         System.out.println(auth.getName());
-        System.out.println("zzzzzzzzzzzzz"+user);
-        if ((user == null)) {
-            throw new BadCredentialsException("Invalid username or password");
-        }
+//        System.out.println("zzzzzzzzzzzzz"+user);
+///*        if ((user == null)) {
+//            throw new BadCredentialsException("Invalid username or password");
+//        }*/
         // to verify verification code
 /*        if (user.isUsing2FA()) {
             final Totp totp = new Totp(user.getSecret());
@@ -37,8 +33,9 @@ public class CustomAuthenticationProvider extends DaoAuthenticationProvider {
             }
 
         }*/
-        final Authentication result = super.authenticate(auth);
-        return new UsernamePasswordAuthenticationToken(user, result.getCredentials(), result.getAuthorities());
+       // final Authentication result = super.authenticate(auth);
+//        return new UsernamePasswordAuthenticationToken(user, result.getCredentials(), result.getAuthorities());
+        return null;
     }
 
     private boolean isValidLong(String code) {

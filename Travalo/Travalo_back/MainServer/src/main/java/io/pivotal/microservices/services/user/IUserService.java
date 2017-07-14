@@ -4,7 +4,6 @@ package io.pivotal.microservices.services.user;
  * Created by DPLICHTA on 4/12/2017.
  */
 
-import io.pivotal.microservices.accounts.User;
 import io.pivotal.microservices.accounts.VerificationToken;
 import io.pivotal.microservices.exceptions.UserAlreadyExistException;
 import io.pivotal.microservices.users.UserDTO;
@@ -12,13 +11,13 @@ import io.pivotal.microservices.users.UserDTO;
 
 public interface IUserService {
 
-    User registerNewUserAccount(UserDTO accountDto) throws UserAlreadyExistException;
+    userService.models.User registerNewUserAccount(UserDTO accountDto) throws UserAlreadyExistException;
 
-    void createVerificationToken(User user, String token);
+    void createVerificationToken(userService.models.User user, String token);
 
     VerificationToken getVerificationToken(String VerificationToken);
 
-    void saveRegisteredUser(User user);
+    void saveRegisteredUser(userService.models.User user);
 /*
     User getUser(String verificationToken);
 

@@ -1,0 +1,12 @@
+friendsService\WebSecurityConfig.class
+friendsService\models\PlaceResponse.class
+friendsService\configuration\FriendsConfiguration.class
+friendsService\models\Place.class
+friendsService\models\HotelResponse.class
+Main.class
+friendsService\services\FriendsServiceImpl.class
+friendsService\services\FriendsService.class
+friendsService\models\HotelProperties.class
+friendsService\models\Geometry.class
+friendsService\FriendsServer.class
+friendsService\models\Hotel.class

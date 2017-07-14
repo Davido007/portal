@@ -4,12 +4,8 @@ package io.pivotal.microservices.services.user;
  * Created by DPLICHTA on 4/12/2017.
  */
 
-import io.pivotal.microservices.accounts.User;
 import io.pivotal.microservices.accounts.VerificationToken;
 import io.pivotal.microservices.exceptions.UserAlreadyExistException;
-import io.pivotal.microservices.repositories.RoleRepository;
-import io.pivotal.microservices.repositories.UserRepository;
-import io.pivotal.microservices.repositories.VerificationTokenRepository;
 import io.pivotal.microservices.users.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,17 +19,15 @@ public class UserService implements IUserService {
 
     protected String serviceUrl;
 
-    @Autowired
-    private UserRepository repository;
+/*    @Autowired
+    private UserRepository repository;*/
 
-    @Autowired
-    private RoleRepository roleRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private VerificationTokenRepository tokenRepository;
+/*    @Autowired
+    private VerificationTokenRepository tokenRepository;*/
 /*
     @Autowired
     private VerificationTokenRepository tokenRepository;
@@ -63,14 +57,14 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User registerNewUserAccount(final UserDTO accountDto) {
+    public userService.models.User registerNewUserAccount(final UserDTO accountDto) {
         if (emailExist(accountDto.getEmail())) {
             throw new UserAlreadyExistException("There is an account with that email adress: " + accountDto.getEmail());
         }
         if (loginExist(accountDto.getUserName())) {
             throw new UserAlreadyExistException("There is an account with that username: " + accountDto.getUserName());
         }
-        final User user = new User();
+        final userService.models.User user = new userService.models.User();
 
         user.setFirstName(accountDto.getUserName());
         user.setLogin(accountDto.getUserName());
@@ -79,22 +73,25 @@ public class UserService implements IUserService {
         //user.setEnabled(true);
         //user.setUsing2FA(accountDto.isUsing2FA());
         //user.setRoles(Arrays.asList(roleRepository.findByName("USER_ROLE")));
-        return repository.save(user);
+        //return repository.save(user);
+        return null;
     }
 
     @Override
-    public void createVerificationToken(User user, String token) {
+    public void createVerificationToken(userService.models.User user, String token) {
         VerificationToken myToken = new VerificationToken(token, user);
-        tokenRepository.save(myToken);
+        //tokenRepository.save(myToken);
     }
 
     @Override
     public VerificationToken getVerificationToken(String VerificationToken) {
-        return tokenRepository.findByToken(VerificationToken);
+        return null;
+//        return tokenRepository.findByToken(VerificationToken);
     }
     @Override
-    public void saveRegisteredUser(User user) {
-        repository.save(user);
+    public void saveRegisteredUser(userService.models.User user) {
+
+//        repository.save(user);
     }
 
     /*@Override
@@ -227,10 +224,11 @@ public class UserService implements IUserService {
     }
 */
     private boolean emailExist(final String email) {
-        return repository.findByEmail(email) != null;
+        //return repository.findByEmail(email) != null;
+return true;
     }
     private boolean loginExist(final String login) {
-        return repository.findByLogin(login) != null;
+return true;//        return repository.findByLogin(login) != null;
     }
 /*    private boolean userNameExist(final String userName) {
         return repository.findByUserName(userName) != null;

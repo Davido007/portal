@@ -32,7 +32,7 @@ public class RegistrationListener implements
     }
 
     private void confirmRegistration(OnRegistrationCompleteEvent event) {
-        User user = event.getUser();
+        userService.models.User user = event.getUser();
         String token = UUID.randomUUID().toString();
         service.createVerificationToken(user, token);
 

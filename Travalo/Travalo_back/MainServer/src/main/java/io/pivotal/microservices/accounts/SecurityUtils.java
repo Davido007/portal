@@ -45,6 +45,7 @@ public final class SecurityUtils {
                 System.out.println("kkk1"+authentication.getPrincipal());
                 userName = (String) authentication.getPrincipal();
             }
+
         }
         System.out.println("zzz"+ userName);
         return userName;

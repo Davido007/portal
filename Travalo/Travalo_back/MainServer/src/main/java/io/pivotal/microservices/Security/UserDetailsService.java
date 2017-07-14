@@ -1,8 +1,7 @@
 package io.pivotal.microservices.Security;
 
 import io.pivotal.microservices.accounts.AccountsController;
-import io.pivotal.microservices.accounts.User;
-import io.pivotal.microservices.repositories.UserRepo;
+import io.pivotal.microservices.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +25,7 @@ public class UserDetailsService implements org.springframework.security.core.use
     private final Logger log = LoggerFactory.getLogger(UserDetailsService.class);
 
     @Autowired
-    private UserRepo userRepo;
+    private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -36,13 +35,13 @@ public class UserDetailsService implements org.springframework.security.core.use
         System.out.println("nnnnnnnnnnnnnnn" + login);
         log.debug("Authenticating {}", login);
 
-        User user = userRepo.findByLogin(login);
+        io.pivotal.microservices.accounts.User user = userRepository.findByLogin(login);
         System.out.println(user);
         if (user == null) {
             System.out.println("zzz");
             throw new UsernameNotFoundException("User " + login + " was not found in the database");
         } else if (!user.getEnabled()) {
-            throw new UserNotEnabledException("User " + login + " was not enabled");
+            throw new userService.exceptions.UserNotEnabledException("User " + login + " was not enabled");
         }
         System.out.println("xxx");
         Collection<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
@@ -51,7 +50,7 @@ public class UserDetailsService implements org.springframework.security.core.use
             grantedAuthorities.add(grantedAuthority);
         }
 
-      //  String encodedPassword = passwordEncoder.encode(user.getPassword());
+        //  String encodedPassword = passwordEncoder.encode(user.getPassword());
         String encodedPassword = user.getPassword();
 //        passwordEncoder
         return new org.springframework.security.core.userdetails.User(login, encodedPassword,

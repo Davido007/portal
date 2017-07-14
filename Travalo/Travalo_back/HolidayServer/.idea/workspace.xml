@@ -441,7 +441,7 @@
       <recent name="C:\Users\DPLICHTA\Desktop\portal\Travalo\Travalo_back\HolidayServer\src\main\java\com\travalo\holidayservice" />
     </key>
   </component>
-  <component name="RunManager" selected="Maven.Maven">
+  <component name="RunManager" selected="Spring Boot.HolidaysServer">
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
       <module name="" />
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
@@ -944,16 +944,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1498027681919</updated>
-      <workItem from="1498027686384" duration="8497000" />
+      <workItem from="1498027686384" duration="9219000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8497000" />
+    <option name="totallyTimeSpent" value="9219000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1" y="1" width="1364" height="727" extended-state="1" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />

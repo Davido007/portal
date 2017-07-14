@@ -1,9 +1,7 @@
 package io.pivotal.microservices.Security;
 
 import io.pivotal.microservices.accounts.Token;
-import io.pivotal.microservices.accounts.User;
 import io.pivotal.microservices.repositories.TokenRepo;
-import io.pivotal.microservices.repositories.UserRepo;
 import org.apache.commons.lang.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,8 +47,8 @@ public class RememberMeServices extends AbstractRememberMeServices {
     @Autowired
     private TokenRepo tokenRepo;
 
-    @Autowired
-    private UserRepo userRepo3;
+/*    @Autowired
+    private UserRepository userRepo3;*/
 
     @Autowired
     public RememberMeServices(org.springframework.security.core.userdetails.UserDetailsService userDetailsService) {
@@ -89,10 +87,10 @@ public class RememberMeServices extends AbstractRememberMeServices {
         String login = successfulAuthentication.getName();
 
         log.debug("Creating new persistent login for user {}", login);
-        User user = userRepo3.findByLogin(login);
+       // userService.models.User user = userRepo3.findByLogin(login);
         Token token = new Token();
         token.setSeries(generateSeriesData());
-        token.setUserLogin(user.getLogin());
+        //token.setUserLogin(user.getLogin());
         token.setValue(generateTokenData());
         token.setDate(new Date());
         token.setIpAddress(request.getRemoteAddr());
